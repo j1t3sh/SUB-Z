@@ -13,9 +13,10 @@ def subdomain():
         subdomain()
     else:
         x = input("Enter the Website to find Subdomains : ")
+        print("[+]Finding all the possible subdomains....")
         os.system("assetfinder --subs-only " + x + " | httprobe > " + x + ".txt")
         list_sub = []
-        new=[]
+        new_list=[]
         file1 = open(x + '.txt','r')
         count = 0
         while True:
@@ -25,16 +26,19 @@ def subdomain():
             if not line:
                 break
             list_sub.append(line)
+        print("Total no. of Subdomains Found for "+x+" - "+str(len(list_sub)))
         for i in range(len(list_sub)):
             z = str(list_sub[i])
             z = re.sub("\\n$","",z)
-            new.append(z)
+            new_list.append(z)
 
-        for m in new:
+        for m in new_list:
             try:
                 response = requests.get(m)
-                print(m,":",response.status_code)
+                if response.status_code == 200:
+                    print(m,":",response.status_code,response.reason)
             except:
                 continue   
         file1.close() 
+        os.system("rm "+x+".txt")
 subdomain()    
