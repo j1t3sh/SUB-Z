@@ -5,6 +5,7 @@ from subprocess import Popen, PIPE
 import os
 from termcolor import colored
 import terminal_banner
+import socket
 
 os. system('clear')
 
@@ -63,12 +64,24 @@ def subdomain():
             z = str(list_sub[i])
             z = re.sub("\\n$","",z)
             new_list.append(z)
-
+    
+        for q in new_list:
+            def ip():
+                if "https" in q:
+                    ipaddr = q.replce("https://","")
+                    return ipaddr
+                else:
+                    ipaddr = q.replace("http://","")
+                    return ipaddr
         for m in new_list:
             try:
                 response = requests.get(m)
                 if response.status_code == 200:
-                    print(m,":",response.status_code,response.reason)
+                    print("\u001b[32m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m ")
+                elif(400<response.status_code<500):
+                    print("\u001b[31m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m")
+                else:
+                    print("\u001b[36m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m")
             except:
                 continue   
         file1.close() 
