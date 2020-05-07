@@ -1,2 +1,1 @@
 # SubDomain-EZ
-.
