@@ -2,3 +2,4 @@ requests
 terminal_banner
 termcolor
 socket.py
+argparse

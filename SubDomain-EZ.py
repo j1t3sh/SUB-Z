@@ -102,7 +102,7 @@ try:
     if(s.returncode == 1): #If httprobe not installed
         print("\u001b[31m[+]Httprobe not found.\u001b[0m")
         print("\u001b[36m[+]Installing httprobe Please Wait......\u001b[0m")
-        os.system("sudo apt install git;sudo apt install golang;sudo git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
+        os.system("sudo apt install git;sudo apt install golang;git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
     else:
         print("\u001b[32m[+]Httprobe Found.\u001b[0m\n")
         assetfinder()    
