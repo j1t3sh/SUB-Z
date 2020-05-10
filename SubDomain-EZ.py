@@ -6,9 +6,17 @@ import os
 from termcolor import colored
 import terminal_banner
 import socket
+import argparse
 
+
+
+parser = argparse.ArgumentParser(description='\u001b[36mSubZ - A Subdomain Enumeration Tool \u001b[0m')
+parser.add_argument('-d','--domain' , help = 'Domain name of the taget [ex : bugcrowd.com]' , required=True)
+parser.add_argument('-https', help='To get the Subdomains with HTTPS Service ',action='store_true')
+parser.add_argument('-ip', help='To get the IP address of the Subdomains',action='store_true')
+
+args = parser.parse_args()
 os.system('clear')
-
 
 banner = ("""\u001b[36m
                     
@@ -34,15 +42,20 @@ banner = ("""\u001b[36m
 
 print(banner)
 
+if args.https:
+    args.https = "--prefer-https"
+else:
+    args.https = ""
+
 def subez():
-    x = input("Enter the Website to find Subdomains : ")
+    
     print("\n")
     print("[+]Finding all the possible subdomains....")
     print("\n")
-    os.system("assetfinder --subs-only " + x + " | httprobe > " + x + ".txt")
+    os.system("assetfinder --subs-only " + args.domain + " | httprobe " + args.https +"> " + args.domain + ".txt")
     list_sub = []
     new_list=[]
-    file1 = open(x + '.txt','r')
+    file1 = open(args.domain + '.txt','r')
     count = 0
     while True:
         count +=1
@@ -51,7 +64,7 @@ def subez():
         if not line:
             break
         list_sub.append(line)
-    print("Total no. of Subdomains Found for "+x+" - "+str(len(list_sub)))
+    print("Total no. of Subdomains Found for "+args.domain+" - "+str(len(list_sub)))
     print("\n")
     for i in range(len(list_sub)):
         z = str(list_sub[i])
@@ -66,19 +79,25 @@ def subez():
             else:
                 ipaddr = q.replace("http://","")
                 return ipaddr
+    
+    if args.ip:
+        args.ip = "- " + socket.gethostbyname(ip())
+    else:
+        args.ip = ""
+
     for m in new_list:
         try:
             response = requests.get(m)
             if response.status_code == 200:
-                print("\u001b[32m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m ")
+                print("\u001b[32m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
             elif(400<response.status_code<500):
-                print("\u001b[31m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m")
+                print("\u001b[31m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m")
             else:
-                print("\u001b[36m"+m,"-",socket.gethostbyname(ip()),":",response.status_code,response.reason+"\u001b[0m")
+                print("\u001b[36m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m")
         except:
             continue   
     file1.close() 
-    os.system("rm "+x+".txt")
+    os.system("rm "+args.domain+".txt")
 
 
 def assetfinder():
@@ -102,10 +121,10 @@ try:
     if(s.returncode == 1): #If httprobe not installed
         print("\u001b[31m[+]Httprobe not found.\u001b[0m")
         print("\u001b[36m[+]Installing httprobe Please Wait......\u001b[0m")
-        os.system("sudo apt install git;sudo apt install golang;git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
+        os.system("sudo apt install git;sudo apt install golang;sudo git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
     else:
         print("\u001b[32m[+]Httprobe Found.\u001b[0m\n")
         assetfinder()    
 
 except:
-    os.system("exit")
+   os.system("exit")
