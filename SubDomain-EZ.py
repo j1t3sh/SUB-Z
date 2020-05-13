@@ -70,7 +70,6 @@ def subez():
         if not line:
             break
         list_sub.append(line)
-    #print("Total no. of Subdomains Found for "+args.domain+" - "+str(len(list_sub)))
     print("\n")
     for i in range(len(list_sub)):
         z = str(list_sub[i])
@@ -80,7 +79,7 @@ def subez():
     for q in new_list:
         def ip():
             if "https" in q:
-                ipaddr = q.replce("https://","")
+                ipaddr = q.replace("https://","")
                 return ipaddr
             else:
                 ipaddr = q.replace("http://","")
@@ -120,7 +119,8 @@ def assetfinder():
         print("\u001b[32m[+]Assetfinder Found.\u001b[0m\n")
         subez()
 
-try:
+
+def httprobe():
     print("\u001b[36m[+]Checking if httprobe is installed.....\u001b[0m\n")
     s = Popen(['/usr/bin/which', "httprobe"], stdout=PIPE, stderr=PIPE)
     s.communicate()
@@ -132,5 +132,8 @@ try:
         print("\u001b[32m[+]Httprobe Found.\u001b[0m\n")
         assetfinder()    
 
-except:
-   os.system("exit")
+#try:
+httprobe()
+#except:
+   # print("Some Error Occured. Please Try Again in few minutes....")
+    #os.system("exit")
