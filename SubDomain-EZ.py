@@ -7,6 +7,10 @@ from termcolor import colored
 import terminal_banner
 import socket
 import argparse
+import subprocess
+import shutil
+import itertools
+import time
 
 
 
@@ -47,12 +51,14 @@ if args.https:
 else:
     args.https = ""
 
-def subez(): #Main Function
-    
-    print("\n")
-    print("[+]Finding all the possible subdomains....")
-    print("\n")
-    os.system("assetfinder --subs-only " + args.domain + " | httprobe " + args.https +"> " + args.domain + ".txt")
+def subez():
+    spinner=itertools.cycle(['|','/','-','\\'])
+    process=subprocess.Popen("assetfinder --subs-only " + args.domain + " | httprobe " + args.https +" > " + args.domain +".txt",shell=True)
+    while process.poll() is None:
+        time.sleep(0.5)
+        cols=" "*(shutil.get_terminal_size((80, 20))[0]-65)
+        count = len(open(args.domain+".txt").read().split('\n')) - 1
+        print("\r[+]Searching Subdomains "+next(spinner)+ cols+ "\u001b[32mFound: "+str(count),end=''+"\u001b[0m ")
     list_sub = []
     new_list=[]
     file1 = open(args.domain + '.txt','r')
@@ -64,7 +70,7 @@ def subez(): #Main Function
         if not line:
             break
         list_sub.append(line)
-    print("Total no. of Subdomains Found for "+args.domain+" - "+str(len(list_sub)))
+    #print("Total no. of Subdomains Found for "+args.domain+" - "+str(len(list_sub)))
     print("\n")
     for i in range(len(list_sub)):
         z = str(list_sub[i])
@@ -81,7 +87,7 @@ def subez(): #Main Function
                 return ipaddr
     
     if args.ip:
-        args.ip = "- " + socket.gethostbyname(ip())
+        args.ip =  socket.gethostbyname(ip())
     else:
         args.ip = ""
 
@@ -89,11 +95,11 @@ def subez(): #Main Function
         try:
             response = requests.get(m)
             if response.status_code == 200:
-                print("\u001b[32m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
+                print("\u001b[32m"+m + " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
             elif(400<response.status_code<500):
-                print("\u001b[31m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m")
+                print("\u001b[31m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
             else:
-                print("\u001b[36m"+m,args.ip+" :",response.status_code,response.reason+"\u001b[0m")
+                print("\u001b[36m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
         except:
             continue   
     file1.close() 
