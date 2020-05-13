@@ -47,7 +47,7 @@ if args.https:
 else:
     args.https = ""
 
-def subez():
+def subez(): #Main Function
     
     print("\n")
     print("[+]Finding all the possible subdomains....")
