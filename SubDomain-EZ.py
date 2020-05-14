@@ -23,24 +23,22 @@ args = parser.parse_args()
 os.system('clear')
 
 banner = ("""\u001b[36m
-                    
-                
-  ____        _     ____                        _             _____ _____
- / ___| _   _| |__ |  _ \  ___  _ __ ___   __ _(_)_ __       | ____|__  /
- \___ \| | | | '_ \| | | |/ _ \| '_ ` _ \ / _` | | '_ \ _____|  _|   / / 
-  ___) | |_| | |_) | |_| | (_) | | | | | | (_| | | | | |_____| |___ / /_ 
- |____/ \__,_|_.__/|____/ \___/|_| |_| |_|\__,_|_|_| |_|     |_____/____|
-                                                                         
-                                                                        \u001b[0m  
-                              \u001b[32m Made with \u001b[31m❤️\u001b[0m 
-                    \u001b[32mFor the Community, By the Community   
+                  ███████╗██╗   ██╗██████╗      ███████╗
+                  ██╔════╝██║   ██║██╔══██╗     ╚══███╔╝
+                  ███████╗██║   ██║██████╔╝█████╗ ███╔╝ 
+                  ╚════██║██║   ██║██╔══██╗╚════╝███╔╝  
+                  ███████║╚██████╔╝██████╔╝     ███████╗
+                  ╚══════╝ ╚═════╝ ╚═════╝      ╚══════╝          \u001b[0m  
+                                
+                                Made with \u001b[31m❤️\u001b[0m 
+                    For the Community, By the Community   
                     ###################################
-                        Developed by Jitesh Kumar
-                Intagram  - https://instagram.com/jitesh.haxx
-                   linkedin  - https://linkedin.com/j1t3sh
-                     Github - https://github.com/j1t3sh
+                        Developed by \u001b[36mJitesh Kumar\u001b[0m 
+                Intagram  - \u001b[36mhttps://instagram.com/jitesh.haxx\u001b[0m 
+                   linkedin  - \u001b[36mhttps://linkedin.com/j1t3sh\u001b[0m 
+                     Github - \u001b[36mhttps://github.com/j1t3sh\u001b[0m 
                                             
-            ( DONT COPY THE CODE. CONTRIBUTIONS ARE MOST WELCOME \u001b[31m❤️\u001b[0m \u001b[32m)\u001b[0m 
+            ( DONT COPY THE CODE. CONTRIBUTIONS ARE MOST WELCOME \u001b[31m❤️\u001b[0m ) 
                                                                                 
 """)
 
@@ -75,7 +73,7 @@ def subez():
         z = str(list_sub[i])
         z = re.sub("\\n$","",z)
         new_list.append(z)
-    print("[+]Scanning for the Services....")
+    print("[+]Scanning for the Services....\n")
     for q in new_list:
         def ip():
             if "https" in q:
@@ -123,7 +121,6 @@ def httprobe():
     s.communicate()
     if(s.returncode == 1): #If httprobe not installed
         print("\u001b[36m[+]Installing httprobe Please Wait......\u001b[0m")
-        #os.system("sudo apt install git;sudo apt install golang;sudo git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
         os.system("sudo chmod +x httprobe;sudo cp httprobe /usr/bin/")
         httprobe()
     else:
@@ -131,8 +128,4 @@ def httprobe():
         os.system('rm httprobe')
         assetfinder()    
 
-#try:
 httprobe()
-#except:
-   # print("Some Error Occured. Please Try Again in few minutes....")
-    #os.system("exit")
