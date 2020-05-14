@@ -3,6 +3,8 @@ import re
 import subprocess
 from subprocess import Popen, PIPE
 import os
+import os.path
+from os import path
 from termcolor import colored
 import terminal_banner
 import socket
@@ -18,6 +20,7 @@ parser = argparse.ArgumentParser(description='\u001b[36mSubZ - A Subdomain Enume
 parser.add_argument('-d','--domain' , help = 'Domain name of the taget [ex : bugcrowd.com]' , required=True)
 parser.add_argument('-https', help='To get the Subdomains with HTTPS Service ',action='store_true')
 parser.add_argument('-ip', help='To get the IP address of the Subdomains',action='store_true')
+parser.add_argument('-live', help='To find only live subdomains',action='store_true')
 
 args = parser.parse_args()
 os.system('clear')
@@ -73,7 +76,7 @@ def subez():
         z = str(list_sub[i])
         z = re.sub("\\n$","",z)
         new_list.append(z)
-    print("[+]Scanning for the Services....\n")
+    
     for q in new_list:
         def ip():
             if "https" in q:
@@ -88,17 +91,29 @@ def subez():
     else:
         args.ip = ""
 
-    for m in new_list:
-        try:
-            response = requests.get(m)
-            if response.status_code == 200:
-                print("\u001b[32m"+m + " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
-            elif(400<response.status_code<500):
-                print("\u001b[31m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
-            else:
-                print("\u001b[36m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
-        except:
-            continue   
+    if args.live:
+        print("[+]Scanning for only Live Subdomains....\n")
+        for m in new_list:
+            try:
+                response = requests.get(m)
+                if response.status_code == 200:
+                    print("\u001b[32m"+m + " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
+            except:
+                    continue
+    else:
+        print("[+]Scanning for the Services....\n")
+        for m in new_list:
+            try:
+                response = requests.get(m)
+                
+                if response.status_code == 200:
+                    print("\u001b[32m"+m + " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m ")
+                elif(400<response.status_code<500):
+                    print("\u001b[31m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
+                else:
+                    print("\u001b[36m"+m+ " - " +args.ip+" :",response.status_code,response.reason+"\u001b[0m")
+            except:
+                continue   
     file1.close() 
     os.system("rm "+args.domain+".txt")
 
@@ -109,11 +124,16 @@ def assetfinder():
     if(p.returncode == 1): #If assetfinder not installed
         print("\u001b[36m[+]Installing Assetfinder Please Wait......\u001b[0m")
         os.system("sudo chmod +x assetfinder;sudo cp assetfinder /usr/bin/")
+        os.system('rm assetfinder')
         assetfinder()
     else:
-        print("\u001b[32m[+]Assetfinder Found.\u001b[0m\n")
-        os.system('rm assetfinder')
-        subez()
+        print("\u001b[32m[+]Assetfinder Found.\u001b[0m\n") 
+        if path.exists("assetfinder"):
+            os.system("rm assetfinder")
+            subez()
+        else:
+            subez()      
+        
 
 
 def httprobe():
@@ -122,10 +142,15 @@ def httprobe():
     if(s.returncode == 1): #If httprobe not installed
         print("\u001b[36m[+]Installing httprobe Please Wait......\u001b[0m")
         os.system("sudo chmod +x httprobe;sudo cp httprobe /usr/bin/")
+        os.system('rm httprobe')
         httprobe()
     else:
         print("\u001b[32m[+]Httprobe Found.\u001b[0m\n")
-        os.system('rm httprobe')
-        assetfinder()    
+        if path.exists("httprobe"):
+            os.system("rm httprobe")
+            assetfinder()
+        else:
+            assetfinder()
+            
 
 httprobe()
