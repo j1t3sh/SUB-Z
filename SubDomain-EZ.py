@@ -112,11 +112,13 @@ def assetfinder():
     if(p.returncode == 1): #If assetfinder not installed
         print("\u001b[31m[+]Assetfinder not found.\u001b[0m")
         print("\u001b[36m[+]Installing Assetfinder Please Wait......\u001b[0m")
-        os.system("wget https://github.com/tomnomnom/assetfinder/releases/download/v0.1.0/assetfinder-linux-amd64-0.1.0.tgz")
-        os.system("tar zxvf assetfinder-linux-amd64-0.1.0.tgz;chmod +x assetfinder;sudo cp assetfinder /usr/bin/;rm assetfinder-linux-amd64-0.1.0.tgz;rm assetfinder")
+        #os.system("wget https://github.com/tomnomnom/assetfinder/releases/download/v0.1.0/assetfinder-linux-amd64-0.1.0.tgz")
+        #os.system("tar zxvf assetfinder-linux-amd64-0.1.0.tgz;sudo chmod +x assetfinder;sudo cp assetfinder /usr/bin/;rm assetfinder-linux-amd64-0.1.0.tgz;rm assetfinder")
+        os.system("sudo chmod +x assetfinder;sudo cp assetfinder /usr/bin/")
         assetfinder()
     else:
         print("\u001b[32m[+]Assetfinder Found.\u001b[0m\n")
+        os.system('rm assetfinder')
         subez()
 
 
@@ -127,9 +129,12 @@ def httprobe():
     if(s.returncode == 1): #If httprobe not installed
         print("\u001b[31m[+]Httprobe not found.\u001b[0m")
         print("\u001b[36m[+]Installing httprobe Please Wait......\u001b[0m")
-        os.system("sudo apt install git;sudo apt install golang;sudo git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
+        #os.system("sudo apt install git;sudo apt install golang;sudo git clone https://github.com/tomnomnom/httprobe;cd httprobe;sudo go build main.go;sudo mv main httprobe;sudo mv httprobe /usr/bin.")
+        os.system("sudo chmod +x httprobe;sudo cp httprobe /usr/bin/")
+        httprobe()
     else:
         print("\u001b[32m[+]Httprobe Found.\u001b[0m\n")
+        os.system('rm httprobe')
         assetfinder()    
 
 #try:
