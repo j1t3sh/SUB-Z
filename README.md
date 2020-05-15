@@ -55,3 +55,5 @@ $ python3 Sub-Z.py -d example.com -live
 $ python3 Sub-Z.py -d example.com -https -ip -live
 ```
 ![all Usage](Assets/5.gif)
+
+## MAY THE BEST RECON WINS.
