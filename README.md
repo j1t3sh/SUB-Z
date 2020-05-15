@@ -21,19 +21,19 @@ $ sudo pip3 install -r requirements.txt
 
 ## Usage:
 
-- **Default `-d example.com`** (-d ,--domain is used for giving domain)
+- **Default** `-d example.com`** (-d ,--domain is used for giving domain)**
 ```
 $ python3 Sub-Z.py -d example.com
 ```
-- **For Finding only https SubDomains. Use : `-https`
+- **For Finding only https SubDomains. Use :** `-https`
 ```
 $ python3 Sub-Z.py -d example.com -https
 ```
-- **For Finding IP Addresses of the SubDomains. Use : `-ip`
+- **For Finding IP Addresses of the SubDomains. Use :** `-ip`
 ```
 $ python3 Sub-Z.py -d example.com -ip
 ```
-- **For Finding only Live SubDomains. Use : `-live`
+- **For Finding only Live SubDomains. Use :** `-live`
 ```
 $ python3 Sub-Z.py -d example.com -live
 ```
