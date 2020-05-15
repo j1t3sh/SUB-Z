@@ -1,7 +1,8 @@
 <h1 align="center">Sub-Z</h1>
 <p align="center">A Complete Subdomain Enumeration Tool.</p><br>
-
-<div align="center">[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)</div>
+<div align="center">
+<img src="https://forthebadge.com/images/badges/made-with-python.svg" >
+</div>
 
 ## Features:
 
@@ -25,19 +26,34 @@ $ sudo pip3 install -r requirements.txt
 ```
 $ python3 Sub-Z.py -d example.com
 ```
+![-d Usage](Assets/1.gif)
+
+
 - **For Finding only https SubDomains. Use :** `-https`
 ```
 $ python3 Sub-Z.py -d example.com -https
 ```
+![-https Usage](Assets/2.gif)
+
+
 - **For Finding IP Addresses of the SubDomains. Use :** `-ip`
 ```
 $ python3 Sub-Z.py -d example.com -ip
 ```
+![-ip Usage](Assets/3.gif)
+
+
 - **For Finding only Live SubDomains. Use :** `-live`
 ```
 $ python3 Sub-Z.py -d example.com -live
 ```
+![-live Usage](Assets/4.gif)
+
+
 - **Using all the above arguments.(From this you will get only live subdomains with https and IP for the same)**
 ```
 $ python3 Sub-Z.py -d example.com -https -ip -live
 ```
+![all Usage](Assets/5.gif)
+
+## MAY THE BEST RECON WINS.
