@@ -1,7 +1,7 @@
 <h1 align="center">Sub-Z</h1>
 <p align="center">A Complete Subdomain Enumeration Tool.</p><br>
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+<div align="center">[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)</div>
 
 ## Features:
 
