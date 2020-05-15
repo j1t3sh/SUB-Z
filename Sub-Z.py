@@ -152,5 +152,7 @@ def httprobe():
         else:
             assetfinder()
             
-
-httprobe()
+try:
+    httprobe()
+except:
+    print("Check your Internet Connection or Try Again Later")
