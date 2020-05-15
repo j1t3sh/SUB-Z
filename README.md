@@ -21,7 +21,7 @@ $ sudo pip3 install -r requirements.txt
 
 ## Usage:
 
-- **Default** `-d example.com`** (-d ,--domain is used for giving domain)**
+- **Default** `-d example.com` **(-d ,--domain is used for giving domain)**
 ```
 $ python3 Sub-Z.py -d example.com
 ```
@@ -36,4 +36,8 @@ $ python3 Sub-Z.py -d example.com -ip
 - **For Finding only Live SubDomains. Use :** `-live`
 ```
 $ python3 Sub-Z.py -d example.com -live
+```
+- **Using all the above arguments.(From this you will get only live subdomains with https and IP for the same)**
+```
+$ python3 Sub-Z.py -d example.com -https -ip -live
 ```
